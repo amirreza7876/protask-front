@@ -1,6 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {Link, Navigate, useParams} from "react-router-dom";
-import api from "../api";
+import {Link, Navigate, Outlet, useParams} from "react-router-dom";
 import getRoomDetail from "../apiCalls/getRoomDetail";
 import {userContext} from "../userContext";
 
@@ -21,8 +20,13 @@ function RoomDetail(props) {
 			return (
 				<div>
 					{roomDetail.data.is_owner &&
-						<Link to={'/invite'}>Invite Member</Link>
+						<p>
+							<Link to={'/invite'}>Invite Member</Link>
+						</p>
 					}
+					<p>
+						<Link to={`${roomDetail.data.request_string}/requests`}>Requests</Link>
+					</p>
 					<h1>
 						{roomDetail.data.name}
 					</h1>
@@ -33,6 +37,7 @@ function RoomDetail(props) {
 							<p key={member.id}>{member.username}</p>
 						)
 					)}
+					<Outlet/>
 				</div>
 			);
 		}

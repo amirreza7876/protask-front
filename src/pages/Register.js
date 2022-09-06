@@ -12,6 +12,7 @@ function Register(props) {
 	const handleRegister = async (e) => {
 		e.preventDefault()
 		const response = await api.post('/user/api/register/', {password, username, email})
+		console.log(response)
 		if (response.status === 201) {
 			const token = response.data.access
 			localStorage.setItem('token', token)
@@ -27,7 +28,7 @@ function Register(props) {
 	} else {
 		return (
 			<div>
-				<form onSubmit={e => handleRegister(e)}>
+				<form onSubmit={e => handleRegister(e)} style={{display:"inline-grid"}}>
 					<input type="email" name="email" placeholder={'Email'} onChange={e => setEmail(e.target.value)}
 						   id=""/>
 					<input placeholder={'Username'} type="text" name="username"
@@ -35,7 +36,7 @@ function Register(props) {
 						   id=""/>
 					<input placeholder={'Password'} type="password" name="password"
 						   onChange={e => setPassword(e.target.value)} id=""/>
-					<input type="submit" value={"LOGIN"} name="" id=""/>
+					<input type="submit" value={"Register"} name="" id=""/>
 				</form>
 			</div>
 		);

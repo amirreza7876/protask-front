@@ -13,8 +13,8 @@ const instance = axios.create({
 instance.interceptors.request.use(async function (config) {
 	// Do something before request is sent
 	const token = localStorage.getItem('token')
-	config.headers.Authorization =  `Bearer ${token}`;
 	if (token) {
+		config.headers.Authorization = `Bearer ${token}`;
 		const response = await verifyToken(token)  // returns true is token is valid'
 		if (!response) {
 			redirectToLogin()
