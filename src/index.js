@@ -19,6 +19,7 @@ import RoomDetail from "./pages/RoomDetail";
 import MyRequests from "./pages/MyRequests";
 import InviteMember from "./pages/InviteMember";
 import RoomRequests from "./pages/RoomRequests";
+import MyInvitations from "./pages/MyInvitations";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -32,9 +33,10 @@ root.render(
 				<Route path={'join-room'} element={<JoinRoom/>}/>
 				<Route path={'my-rooms'} element={<MyRooms/>}/>
 				<Route path={'my-requests'} element={<MyRequests/>}/>
+				<Route path={'my-invitations'} element={<MyInvitations/>}/>
 				<Route path={'invite'} element={<InviteMember/>}/>
 				<Route path={'room/:id'} element={<RoomDetail/>}/>
-				<Route path={'room/:id/:roomString/requests'} element={<RoomRequests/>}/>
+				<Route path={'room/:id/:requestString/requests'} element={<RoomRequests/>}/>
 				<Route index element={<App/>}/>
 			</Routes>
 		</UserContextProvider>
