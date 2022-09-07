@@ -2,6 +2,9 @@ import React, {useContext, useEffect, useState} from 'react';
 import {userContext} from "../userContext";
 import {Navigate} from "react-router-dom";
 import getInvites from "../apiCalls/getInvites";
+import status from "../utils/checkStatus";
+import handleRequest from "../utils/handleRequest";
+import handleInvite from "../utils/handleInvite";
 
 function MyInvitations(props) {
 	const {isAuthenticated} = useContext(userContext)
@@ -24,16 +27,21 @@ function MyInvitations(props) {
 							<p>
 								{invite.from_room.name} invites you to join
 							</p>
-							<button>
-								Accept
-							</button>
-							<button>
-								Reject
-							</button>
+							<p>
+								{
+									invite.status !== 'p' && status(invite.status)
+								}
+							</p>
+							{
+								invite.status === 'p' &&
+								<div>
+									<button onClick={e => handleInvite(e, 'accept', invite)}>Accept</button>
+									<button onClick={e => handleInvite(e, 'reject', invite)}>Reject</button>
+								</div>}
 						</div>
-
 					)
 				})}
+
 			</div>
 
 		);
