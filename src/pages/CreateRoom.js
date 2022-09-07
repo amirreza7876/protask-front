@@ -5,20 +5,20 @@ import {useNavigate} from "react-router-dom";
 function CreateRoom(props) {
 	const navigate = useNavigate()
 	const [roomName, setRoomName] = useState('');
-	const [roomString, setRoomString] = useState('');
+	const [requestString, setRequestString] = useState('');
 	const [roomIsCreated, setRoomIsCreated] = useState(false);
 
 	const handleCreateRoom = async (e) => {
 		e.preventDefault()
 		const response = await api.post('/rooms/create/', {'name': roomName})
 		if (response.status === 200) {
-			setRoomString(response.data.request_string)
+			setRequestString(response.data.request_string)
 			setRoomIsCreated(true)
 		}
 	}
 
 	if (roomIsCreated) {
-		navigate('/invite', {state: {status: "NEW_ROOM", roomString}})
+		navigate('/invite', {state: {status: "NEW_ROOM", requestString}})
 	}
 
 	return (
