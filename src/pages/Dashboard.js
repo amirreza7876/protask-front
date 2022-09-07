@@ -13,6 +13,7 @@ function Dashboard() {
 					<li><Link to={'/join-room'}>Join room</Link></li>
 					<li><Link to={'/my-rooms'}>My rooms</Link></li>
 					<li><Link to={'/my-requests'}>My Requests</Link></li>
+					<li><Link to={'/my-invitations'}>My Invitations</Link></li>
 				</ul>
 			</div>
 		);
