@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {Link, Navigate, Outlet, useParams} from "react-router-dom";
+import {Link, Navigate, Outlet, useNavigate, useParams} from "react-router-dom";
 import getRoomDetail from "../apiCalls/getRoomDetail";
 import {userContext} from "../userContext";
 
@@ -21,7 +21,7 @@ function RoomDetail(props) {
 				<div>
 					{roomDetail.data.is_owner &&
 						<p>
-							<Link to={'/invite'}>Invite Member</Link>
+							<Link to={'/invite'} state={{status:'EXISTS', roomString:roomDetail.data.request_string}}>Invite Member</Link>
 						</p>
 					}
 					<p>
