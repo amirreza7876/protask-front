@@ -1,6 +1,7 @@
 import api from "../api";
 
 const handleRequest = async (event, type, request) => {
+	event.preventDefault()
 	const fromUser = request.from_user
 	const forRoom = request.for_room
 	const requestId = request.id
