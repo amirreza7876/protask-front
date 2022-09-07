@@ -18,7 +18,6 @@ function MyRequests() {
 				My requests here
 				{requests.length !== 0 && requests.map(request => (
 					<p key={request.id}>Request sent to {request.for_room.name} is {status(request.status)}</p>
-
 				))}
 			</div>
 		);
