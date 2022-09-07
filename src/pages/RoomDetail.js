@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {Link, Navigate, Outlet, useNavigate, useParams} from "react-router-dom";
+import {Link, Navigate, Outlet, useParams} from "react-router-dom";
 import getRoomDetail from "../apiCalls/getRoomDetail";
 import {userContext} from "../userContext";
 
@@ -11,6 +11,7 @@ function RoomDetail(props) {
 	useEffect(() => {
 		getRoomDetail(setRoomDetail, id)
 	}, []);
+
 	if (isAuthenticated) {
 		if (roomDetail.status === 404) {
 			return (
