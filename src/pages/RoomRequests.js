@@ -6,7 +6,7 @@ import handleRequest from "../utils/handleRequest";
 import status from "../utils/checkStatus";
 
 function RoomRequests(props) {
-	const {id, roomString: requestString} = useParams()
+	const {id, requestString} = useParams()
 	const [roomRequests, setRoomRequests] = useState({});
 	const {isAuthenticated} = useContext(userContext)
 
@@ -27,7 +27,7 @@ function RoomRequests(props) {
 									{request.status !== 'p' && status(request.status)}
 									{request.status === 'p' &&
 										<div>
-											< button onClick={e => handleRequest(e, 'accept', request)}>Accept</button>
+											<button onClick={e => handleRequest(e, 'accept', request)}>Accept</button>
 											<button onClick={e => handleRequest(e, 'reject', request)}>Reject</button>
 										</div>
 									}

@@ -6,12 +6,10 @@ const handleRequest = async (event, type, request) => {
 	const requestId = request.id
 	switch (type) {
 		case 'accept':
-			const responseAccepted = await api.post('/rooms/request/', {fromUser, forRoom, requestId, accepted: true})
-			console.log(responseAccepted)
+			await api.post('/rooms/request/', {fromUser, forRoom, requestId, accepted: true})
 			break
 		case 'reject':
-			const responseRejected = await api.post('/rooms/request/', {fromUser, forRoom, requestId, accepted: false})
-			console.log(responseRejected)
+			await api.post('/rooms/request/', {fromUser, forRoom, requestId, accepted: false})
 			break
 
 	}

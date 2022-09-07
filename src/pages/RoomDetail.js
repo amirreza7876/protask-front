@@ -22,7 +22,7 @@ function RoomDetail(props) {
 				<div>
 					{roomDetail.data.is_owner &&
 						<p>
-							<Link to={'/invite'} state={{status:'EXISTS', roomString:roomDetail.data.request_string}}>Invite Member</Link>
+							<Link to={'/invite'} state={{status:'EXISTS', requestString:roomDetail.data.request_string}}>Invite Member</Link>
 						</p>
 					}
 					<p>
