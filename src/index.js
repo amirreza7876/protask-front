@@ -20,6 +20,8 @@ import MyRequests from "./pages/MyRequests";
 import InviteMember from "./pages/InviteMember";
 import RoomRequests from "./pages/RoomRequests";
 import MyInvitations from "./pages/MyInvitations";
+import RoomInvites from "./pages/RoomInvites";
+import MainLayout from "./layouts/MainLayout";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -37,6 +39,7 @@ root.render(
 				<Route path={'invite'} element={<InviteMember/>}/>
 				<Route path={'room/:id'} element={<RoomDetail/>}/>
 				<Route path={'room/:id/:requestString/requests'} element={<RoomRequests/>}/>
+				<Route path={'room/:id/:requestString/invites'} element={<RoomInvites/>}/>
 				<Route index element={<App/>}/>
 			</Routes>
 		</UserContextProvider>
