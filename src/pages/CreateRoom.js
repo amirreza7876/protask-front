@@ -3,22 +3,22 @@ import api from "../api";
 import {useNavigate} from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
 
-function CreateRoom(props) {
+function CreateBoard(props) {
 	const navigate = useNavigate()
-	const [roomName, setRoomName] = useState('');
+	const [boardName, setBoardName] = useState('');
 	const [requestString, setRequestString] = useState('');
-	const [roomIsCreated, setRoomIsCreated] = useState(false);
+	const [boardIsCreated, setBoardIsCreated] = useState(false);
 
 	const handleCreateRoom = async (e) => {
 		e.preventDefault()
-		const response = await api.post('/rooms/create/', {'name': roomName})
+		const response = await api.post('/rooms/create/', {'name': boardName})
 		if (response.status === 200) {
 			setRequestString(response.data.request_string)
-			setRoomIsCreated(true)
+			setBoardIsCreated(true)
 		}
 	}
 
-	if (roomIsCreated) {
+	if (boardIsCreated) {
 		navigate('/invite', {state: {status: "NEW_ROOM", requestString}})
 	}
 
@@ -29,7 +29,7 @@ function CreateRoom(props) {
 					<div className="flex items-center border-b border-[#4f46e5] py-2">
 						<input
 							className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
-							type="text" value={roomName} onChange={e => setRoomName(e.target.value)}
+							type="text" value={boardName} onChange={e => setBoardName(e.target.value)}
 							placeholder="Name The Board"
 							aria-label="Full name"/>
 						<button
@@ -44,4 +44,4 @@ function CreateRoom(props) {
 	);
 }
 
-export default CreateRoom;
+export default CreateBoard;
