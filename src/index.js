@@ -22,6 +22,7 @@ import RoomRequests from "./pages/RoomRequests";
 import MyInvitations from "./pages/MyInvitations";
 import RoomInvites from "./pages/RoomInvites";
 import MainLayout from "./layouts/MainLayout";
+import Notifications from "./pages/Notifications";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -33,10 +34,11 @@ root.render(
 				<Route path={'dashboard'} element={<Dashboard/>}/>
 				<Route path={'create-room'} element={<CreateRoom/>}/>
 				<Route path={'join-room'} element={<JoinRoom/>}/>
-				<Route path={'my-rooms'} element={<MyRooms/>}/>
+				<Route path={'boards'} element={<MyRooms/>}/>
 				<Route path={'my-requests'} element={<MyRequests/>}/>
 				<Route path={'my-invitations'} element={<MyInvitations/>}/>
 				<Route path={'invite'} element={<InviteMember/>}/>
+				<Route path={'notifications'} element={<Notifications/>}/>
 				<Route path={'room/:id'} element={<RoomDetail/>}/>
 				<Route path={'room/:id/:requestString/requests'} element={<RoomRequests/>}/>
 				<Route path={'room/:id/:requestString/invites'} element={<RoomInvites/>}/>
