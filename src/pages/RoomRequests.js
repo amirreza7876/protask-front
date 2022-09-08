@@ -38,7 +38,7 @@ function RoomRequests(props) {
 				);
 			} else {
 				return (
-					<Navigate to={'/my-rooms/'}/>
+					<Navigate to={'/boards/'}/>
 				)
 			}
 		}

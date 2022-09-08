@@ -40,7 +40,7 @@ function RoomInvites(props) {
 				);
 			} else {
 				return (
-					<Navigate to={'/my-rooms/'}/>
+					<Navigate to={'/boards/'}/>
 				)
 			}
 		}
