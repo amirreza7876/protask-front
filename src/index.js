@@ -7,7 +7,6 @@ import {
 	Route,
 } from "react-router-dom";
 import App from "./App";
-import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
@@ -21,8 +20,11 @@ import InviteMember from "./pages/InviteMember";
 import RoomRequests from "./pages/RoomRequests";
 import MyInvitations from "./pages/MyInvitations";
 import RoomInvites from "./pages/RoomInvites";
-import MainLayout from "./layouts/MainLayout";
 import Notifications from "./pages/Notifications";
+import CreateBoard from "./pages/CreateRoom";
+import Profile from "./pages/Profile";
+import Activity from "./pages/Activity";
+import Settings from "./pages/Settings";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -31,8 +33,13 @@ root.render(
 			<Routes>
 				<Route path={'login'} element={<Login/>}/>
 				<Route path={'register'} element={<Register/>}/>
-				<Route path={'dashboard'} element={<Dashboard/>}/>
-				<Route path={'create-room'} element={<CreateRoom/>}/>
+				<Route path={'dashboard'} element={<Dashboard/>}>
+					<Route path={'profile'} element={<Profile/>}/>
+					<Route path={'activity'} element={<Activity/>}/>
+					<Route path={'settings'} element={<Settings/>}/>
+				</Route>
+
+				<Route path={'create-board'} element={<CreateBoard/>}/>
 				<Route path={'join-room'} element={<JoinRoom/>}/>
 				<Route path={'boards'} element={<MyRooms/>}/>
 				<Route path={'my-requests'} element={<MyRequests/>}/>
