@@ -1,0 +1,96 @@
+import React from 'react';
+import {Bars3CenterLeftIcon, ChevronDownIcon, ChevronUpIcon} from "@heroicons/react/20/solid";
+import {Link} from "react-router-dom";
+
+function RoomDetailSidebar({roomDetail, showMembers, setShowMembers}) {
+	return (
+		<div className={'col-span-1 bg-slate-900 min-h-screen text-white'}>
+			<ul>
+				<li className={'mt-3 ml-3'}>
+					<h1 className={'font-extrabold text-3xl tracking-wd font-moon uppercase'}>
+						{roomDetail.data.name}
+					</h1>
+				</li>
+				<li className={'flex mt-3 pl-3 w-full'}>
+					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+						 strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 self-center">
+						<path strokeLinecap="round" strokeLinejoin="round"
+							  d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z"/>
+					</svg>
+					<p className={'ml-4 font-bold text-xl first-letter:uppercase'}>Leader: {roomDetail.data.leader.username}</p>
+				</li>
+				<li className={`flex mt-3 pl-3 w-full hover:bg-indigo-600 py-3 ${showMembers && "bg-indigo-600"}`}
+					onClick={() => setShowMembers(!showMembers)}>
+					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+						 strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+						<path strokeLinecap="round" strokeLinejoin="round"
+							  d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"/>
+					</svg>
+					<p className={'ml-4 flex relative w-full'}>
+						Members
+						{showMembers ? <ChevronUpIcon className={'h-6 w-6 absolute right-4'}/> :
+							<ChevronDownIcon className={'h-6 w-6 absolute right-4'}/>}
+					</p>
+				</li>
+				{showMembers ? roomDetail.data.members.map(member => (<li key={member.id}
+																		  className={'flex w-full bg-indigo-600 hover:bg-indigo-500 py-3 pl-3'}>
+					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+						 strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+						<path strokeLinecap="round" strokeLinejoin="round"
+							  d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/>
+					</svg>
+					<p className={'ml-4'}>
+						{member.username}
+					</p>
+				</li>)) : null}
+				{roomDetail.data.is_owner &&
+					<li className={'w-full hover:bg-indigo-600'}>
+						<Link to={'/invite'} className={'w-full pl-3 py-3  flex h-full'}
+							  state={{status: 'EXISTS', requestString: roomDetail.data.request_string}}>
+							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+								 strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+								<path strokeLinecap="round" strokeLinejoin="round"
+									  d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z"/>
+							</svg>
+							<p className={'ml-4'}>
+								Invite Member
+							</p>
+						</Link>
+					</li>}
+				<li className={'w-full hover:bg-indigo-600'}>
+					<Link to={`${roomDetail.data.request_string}/requests`} className={'flex pl-3 py-3 w-full'}>
+						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+							 strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+							<path strokeLinecap="round" strokeLinejoin="round"
+								  d="M9 3.75H6.912a2.25 2.25 0 00-2.15 1.588L2.35 13.177a2.25 2.25 0 00-.1.661V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18v-4.162c0-.224-.034-.447-.1-.661L19.24 5.338a2.25 2.25 0 00-2.15-1.588H15M2.25 13.5h3.86a2.25 2.25 0 012.012 1.244l.256.512a2.25 2.25 0 002.013 1.244h3.218a2.25 2.25 0 002.013-1.244l.256-.512a2.25 2.25 0 012.013-1.244h3.859M12 3v8.25m0 0l-3-3m3 3l3-3"/>
+						</svg>
+						<p className={'ml-4'}>
+							Requests
+						</p>
+					</Link>
+				</li>
+				<li className={'w-full hover:bg-indigo-600'}>
+					<Link to={`${roomDetail.data.request_string}/invites`} className={'flex w-full pl-3 py-3'}>
+						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+							 strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+							<path strokeLinecap="round" strokeLinejoin="round"
+								  d="M21.75 9v.906a2.25 2.25 0 01-1.183 1.981l-6.478 3.488M2.25 9v.906a2.25 2.25 0 001.183 1.981l6.478 3.488m8.839 2.51l-4.66-2.51m0 0l-1.023-.55a2.25 2.25 0 00-2.134 0l-1.022.55m0 0l-4.661 2.51m16.5 1.615a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V8.844a2.25 2.25 0 011.183-1.98l7.5-4.04a2.25 2.25 0 012.134 0l7.5 4.04a2.25 2.25 0 011.183 1.98V19.5z"/>
+						</svg>
+						<p className={'ml-4'}>
+							Invites
+						</p>
+					</Link>
+				</li>
+				<li className={'w-full hover:bg-indigo-800'}>
+					<Link to={'/boards'} className={'flex w-full pl-3 py-3	'}>
+						<Bars3CenterLeftIcon className={'h-6 w-6'}/>
+						<p className={'ml-4'}>
+							Boards
+						</p>
+					</Link>
+				</li>
+			</ul>
+		</div>);
+}
+
+export default RoomDetailSidebar;
