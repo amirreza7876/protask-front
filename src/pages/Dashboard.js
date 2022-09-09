@@ -10,7 +10,6 @@ function Dashboard() {
 	const currentPage = pathname.split('/')[2]
 	const [username, setUsername] = useState('initState');
 	if(!currentPage){
-		console.log(currentPage)
 		navigate('profile')
 	}
 
