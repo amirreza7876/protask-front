@@ -12,7 +12,6 @@ function Register(props) {
 	const handleRegister = async (e) => {
 		e.preventDefault()
 		const response = await api.post('/user/api/register/', {password, username, email})
-		console.log(response)
 		if (response.status === 201) {
 			const token = response.data.access
 			localStorage.setItem('token', token)
