@@ -4,7 +4,8 @@ import {Link, Navigate} from "react-router-dom";
 import getRooms from "../apiCalls/getRooms";
 import MainLayout from "../layouts/MainLayout";
 import {
-	AdjustmentsHorizontalIcon, AtSymbolIcon,
+	AdjustmentsHorizontalIcon,
+	AtSymbolIcon,
 	Cog6ToothIcon,
 	EllipsisHorizontalIcon,
 	FingerPrintIcon,
@@ -14,6 +15,8 @@ import {
 } from "@heroicons/react/20/solid";
 import {Popover, Transition} from "@headlessui/react";
 import {XMarkIcon} from "@heroicons/react/24/outline";
+import AddTagModal from "../components/AddTagModal";
+import ChangeStatusModal from "../components/ChangeStatusModal";
 
 function classNames(...classes) {
 	return classes.filter(Boolean).join(' ')
@@ -22,82 +25,33 @@ function classNames(...classes) {
 const solutions = [{
 	name: 'Rename', icon: AtSymbolIcon,
 }, {
-	name: 'Add Tags', description: 'Add Tags to board (only visible for you)', to: '/create-board', icon: HashtagIcon,
+	name: 'Add Tags',
+	description: 'Add Tags to board (only visible for you)',
+	to: '/create-board',
+	icon: HashtagIcon,
+	type: "tag"
 }, {
 	name: 'Change status',
 	description: 'Changing status allows you to not receive any email from this room.',
 	to: '/join-room',
 	icon: MegaphoneIcon,
+	type: 'status'
 },]
 
 function MyRooms() {
 	const [rooms, setRooms] = useState([]);
 	const {isAuthenticated} = useContext(userContext)
-	const [showModal, setShowModal] = useState(false);
-
+	// const [showModal, setShowModal] = useState(false);
+	const [showModalTag, setShowModalTag] = useState(false);
+	const [showModalStatus, setShowModalStatus] = useState(false);
 	useEffect(() => {
 		getRooms(setRooms)
 	}, []);
 
 	if (isAuthenticated) {
 		return (<MainLayout>
-			{/*TODO move to another file*/}
-			{showModal ? (<>
-				<div
-					className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-					<div className="relative w-auto my-6 mx-auto max-w-3xl">
-						{/*content*/}
-						<div
-							className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-							{/*header*/}
-							<div
-								className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-								<h3 className="text-3xl font-semibold">
-									Modal Title
-								</h3>
-								<button
-									className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-									onClick={() => setShowModal(false)}
-								>
-											<span
-												className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-											  ×
-											</span>
-								</button>
-							</div>
-							{/*body*/}
-							<div className="relative p-6 flex-auto">
-								<p className="my-4 text-slate-500 text-lg leading-relaxed">
-									I always felt like I could do anything. That’s the main
-									thing people are controlled by! Thoughts- their perception
-									of themselves! They're slowed down by their perception of
-									themselves. If you're taught you can’t do anything, you
-									won’t do anything. I was taught I could do everything.
-								</p>
-							</div>
-							{/*footer*/}
-							<div
-								className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
-								<button
-									className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-									type="button"
-									onClick={() => setShowModal(false)}
-								>
-									Close
-								</button>
-								<button
-									className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-									type="button"
-									onClick={() => setShowModal(false)}
-								>
-									Save Changes
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
-			</>) : null}
+			<AddTagModal showModal={showModalTag} setShowModal={setShowModalTag}/>
+			<ChangeStatusModal showModal={showModalStatus} setShowModal={setShowModalStatus}/>
 			<div className={'grid-cols-4 grid gap-5 mt-3 max-w-6xl m-auto'}>
 				{/*TODO move this to another file*/}
 				{rooms.length !== 0 && rooms.map(room => (<div key={room.id}
@@ -144,7 +98,7 @@ function MyRooms() {
 												className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
 												{solutions.map((item) => (<p
 														className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50 hover:cursor-pointer"
-														onClick={() => setShowModal(true)}
+														onClick={() => item.type === 'tag' ? setShowModalTag(!showModalTag) : setShowModalStatus(!showModalStatus)}
 													>
 														<item.icon
 															className="h-6 w-6 flex-shrink-0 text-indigo-600"

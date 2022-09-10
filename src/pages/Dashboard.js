@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {userContext} from "../userContext";
 import {Link, Navigate, Outlet, useLocation, useNavigate} from "react-router-dom";
-import getUserName from "../apiCalls/getUserName";
+import getUserData from "../apiCalls/getUserData";
 import NavigationBar from "../components/NavigationBar";
 
 function Dashboard() {
@@ -14,7 +14,7 @@ function Dashboard() {
 	}
 
 	useEffect(() => {
-		getUserName(setUsername)
+		getUserData(setUsername)
 	}, []);
 
 	const {isAuthenticated} = useContext(userContext)

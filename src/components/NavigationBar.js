@@ -4,7 +4,7 @@ import {
 	XMarkIcon,
 } from '@heroicons/react/24/outline'
 import {BellAlertIcon, BellIcon, ChevronDownIcon, CubeIcon, FingerPrintIcon, UserIcon} from '@heroicons/react/20/solid'
-import getUserName from "../apiCalls/getUserName";
+import getUserData from "../apiCalls/getUserData";
 import {Link} from "react-router-dom";
 import {userContext} from "../userContext";
 import handleLogout from "../utils/handleLogout";
@@ -49,7 +49,7 @@ export default function NavigationBar() {
 	const {isAuthenticated} = useContext(userContext)
 
 	useEffect(() => {
-		getUserName(setUsername)
+		getUserData(setUsername)
 	}, []);
 	return (
 		<Popover className="relative bg-white border-b-2">

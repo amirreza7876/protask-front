@@ -12,7 +12,6 @@ function TaskCard({task}) {
 		<div
 			className={`p-3 mt-3 max-w-sm bg-white rounded-r-lg border border-gray-200 shadow-md bg-indigo-100`}>
 			<div className={'flex relative'}>
-
 				<h5 className="text-lg tracking-tight text-gray-900	">
 					{task.title}
 				</h5>
