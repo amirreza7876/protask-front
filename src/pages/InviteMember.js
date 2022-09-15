@@ -16,8 +16,7 @@ function InviteMember(props) {
 		// 		<input type="submit" value={'Invite'} name="" id=""/>
 		// 	</form>
 		// </div>
-	<MainLayout>
-		<div>
+		<div className={'col-span-4'}>
 			<form className="m-auto w-full max-w-sm" onSubmit={e => handleInviteMember(e, username, requestString)}>
 				<div className="flex items-center border-b border-[#4f46e5] py-2">
 					<input
@@ -33,7 +32,6 @@ function InviteMember(props) {
 				</div>
 			</form>
 		</div>
-	</MainLayout>
 	);
 }
 
