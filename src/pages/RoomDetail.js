@@ -9,6 +9,7 @@ import {
 import RoomDetailSidebar from "../components/RoomDetailSidebar";
 import getRoomTasks from "../apiCalls/getRoomTasks";
 import TaskCard from "../components/TaskCard";
+import TaskList from "../components/TaskList";
 
 function RoomDetail(props) {
 	const {id} = useParams()
@@ -21,6 +22,7 @@ function RoomDetail(props) {
 	useEffect(() => {
 		getRoomDetail(setRoomDetail, id)
 	}, []);
+
 	if (Object.keys(roomDetail).length !== 0 && !loadedRef.current) {
 		getRoomTasks(setTasks, id, roomDetail.data.request_string)
 		loadedRef.current = true
@@ -35,15 +37,7 @@ function RoomDetail(props) {
 				<div className={'grid grid-cols-5'}>
 					<RoomDetailSidebar roomDetail={roomDetail} showMembers={showMembers}
 									   setShowMembers={setShowMembers}/>
-					{/*TASK LIST*/}
-					<div className={'col-span-4 ml-3'}>
-						<div className={'bg-cyan-200 p-4 -ml-3'}>
-							NAVBAR to create new list and tasks and all room settings
-						</div>
-						<div className={''}>
-							{tasks.length !== 0 && tasks.map(task => (<TaskCard task={task}/>))}
-						</div>
-					</div>
+					<Outlet/>
 				</div>
 			</MainLayout>);
 		}

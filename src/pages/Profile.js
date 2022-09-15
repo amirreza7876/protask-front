@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import getUserData from "../apiCalls/getUserData";
 import handleUpdateUserData from "../apiCalls/handleUpdateUserData";
 
-function Profile(props) {
+function Profile() {
 	const [username, setUsername] = useState('');
 	const [bio, setBio] = useState('');
 	useEffect(() => {
