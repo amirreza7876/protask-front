@@ -6,6 +6,7 @@ import MainLayout from "../layouts/MainLayout";
 function CreateBoard(props) {
 	const navigate = useNavigate()
 	const [boardName, setBoardName] = useState('');
+	const [boardId, setBoardId] = useState('');
 	const [requestString, setRequestString] = useState('');
 	const [boardIsCreated, setBoardIsCreated] = useState(false);
 
@@ -13,13 +14,14 @@ function CreateBoard(props) {
 		e.preventDefault()
 		const response = await api.post('/rooms/create/', {'name': boardName})
 		if (response.status === 200) {
+			setBoardId(response.data.id)
 			setRequestString(response.data.request_string)
 			setBoardIsCreated(true)
 		}
 	}
 
 	if (boardIsCreated) {
-		navigate('/invite', {state: {status: "NEW_ROOM", requestString}})
+		navigate(`/room/${boardId}/invite`, {state: {status: "NEW_ROOM", requestString}})
 	}
 
 	return (
