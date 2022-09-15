@@ -3,7 +3,6 @@ import {userContext} from "../userContext";
 import {Navigate} from "react-router-dom";
 import getInvites from "../apiCalls/getInvites";
 import status from "../utils/checkStatus";
-import handleRequest from "../utils/handleRequest";
 import handleInvite from "../utils/handleInvite";
 
 function MyInvitations(props) {
