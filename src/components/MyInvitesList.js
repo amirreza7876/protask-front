@@ -36,7 +36,6 @@ function MyInvitesList({showInvites, invites}) {
 										{status(invite.status)}
 									</p>
 								}
-
 							</div>
 						</div>
 					)

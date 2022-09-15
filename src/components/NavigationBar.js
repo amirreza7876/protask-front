@@ -33,7 +33,7 @@ const solutions = [{
 }, {
 	name: 'Notifications',
 	description: 'Check invite you get and requests you sent.',
-	to: '/notifications',
+	to: '/dashboard/notifications',
 	icon: BellAlertIcon,
 },
 
@@ -80,7 +80,7 @@ export default function NavigationBar() {
 						<div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
 							<Popover.Group as="nav" className="hidden space-x-5 md:flex">
 								<div>
-									<Link to={'/notifications'}>
+									<Link to={'/dashboard/notifications'}>
 										{/*TODO switch between slate and red when user have new notifications.*/}
 										<BellIcon
 											className="h-6 w-6 flex-shrink-0 text-red-5000 hover:text-red-600 text-slate-600"
@@ -134,11 +134,14 @@ export default function NavigationBar() {
 														<div className={'flow-root'}>
 															<button
 																onClick={e => handleLogout(e)}
-																className="-m-3 flex items-center rounded-md p-3 bg-red-600 text-base font-medium text-gray-900 hover:bg-red-700"
+																className="-m-3 flex items-center rounded-md p-3 bg-red-600 text-base font-medium text-white hover:bg-red-700"
 															>
-																<XMarkIcon
-																	className="h-6 w-6 flex-shrink-0"
-																	aria-hidden="true"/>
+																<svg xmlns="http://www.w3.org/2000/svg" fill="none"
+																	 viewBox="0 0 24 24" strokeWidth={1.5}
+																	 stroke="currentColor" className="w-6 h-6">
+																	<path strokeLinecap="round" strokeLinejoin="round"
+																		  d="M5.636 5.636a9 9 0 1012.728 0M12 3v9"/>
+																</svg>
 																<span className="ml-3">Logout</span>
 															</button>
 														</div>
