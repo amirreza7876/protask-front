@@ -25,6 +25,7 @@ import CreateBoard from "./pages/CreateRoom";
 import Profile from "./pages/Profile";
 import Activity from "./pages/Activity";
 import Settings from "./pages/Settings";
+import TaskList from "./components/TaskList";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -37,6 +38,8 @@ root.render(
 					<Route path={'profile'} element={<Profile/>}/>
 					<Route path={'activity'} element={<Activity/>}/>
 					<Route path={'settings'} element={<Settings/>}/>
+					<Route path={'notifications'} element={<Notifications/>}/>
+
 				</Route>
 
 				<Route path={'create-board'} element={<CreateBoard/>}/>
@@ -44,11 +47,15 @@ root.render(
 				<Route path={'boards'} element={<MyRooms/>}/>
 				<Route path={'my-requests'} element={<MyRequests/>}/>
 				<Route path={'my-invitations'} element={<MyInvitations/>}/>
-				<Route path={'invite'} element={<InviteMember/>}/>
-				<Route path={'notifications'} element={<Notifications/>}/>
-				<Route path={'room/:id'} element={<RoomDetail/>}/>
-				<Route path={'room/:id/:requestString/requests'} element={<RoomRequests/>}/>
-				<Route path={'room/:id/:requestString/invites'} element={<RoomInvites/>}/>
+				<Route path={'room/:id'} element={<RoomDetail/>}>
+					<Route path={'tasks'} element={<TaskList/>}/>
+					<Route path={'invite'} element={<InviteMember/>}/>
+					<Route path={':requestString/requests'} element={<RoomRequests/>}/>
+					<Route path={':requestString/invites'} element={<RoomInvites/>}/>
+				</Route>
+
+				{/*<Route path={'room/:id/:requestString/requests'} element={<RoomRequests/>}/>*/}
+				{/*<Route path={'room/:id/:requestString/invites'} element={<RoomInvites/>}/>*/}
 				<Route index element={<App/>}/>
 			</Routes>
 		</UserContextProvider>
