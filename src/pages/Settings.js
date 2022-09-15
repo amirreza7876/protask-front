@@ -6,7 +6,7 @@ import ChangePasswordForm from "../components/ChangePasswordForm";
 import handleUpdateUserData from "../apiCalls/handleUpdateUserData";
 import {XMarkIcon} from "@heroicons/react/24/outline";
 
-function Settings(props) {
+function Settings() {
 	const [email, setEmail] = useState('');
 	const [show, setShow] = useState(false);
 	const [editable, setEditable] = useState(false);

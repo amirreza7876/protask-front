@@ -14,7 +14,7 @@ const handleRequest = async (event, type, request) => {
 			break
 
 	}
-
+	window.location.reload()
 }
 
 export default handleRequest;
