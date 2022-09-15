@@ -9,7 +9,7 @@ function Dashboard() {
 	const {pathname} = useLocation()
 	const currentPage = pathname.split('/')[2]
 	const [username, setUsername] = useState('initState');
-	if(!currentPage){
+	if (!currentPage) {
 		navigate('profile')
 	}
 
@@ -55,10 +55,15 @@ function Dashboard() {
 						>Settings
 						</Link>
 					</li>
+					<li className="mr-2">
+						<Link to="notifications"
+							  className={`inline-block p-4 rounded-t-lg ${currentPage === 'notifications' ? "text-blue-600 bg-white" : 'hover:text-blue-600 hover:bg-gray-200'}`}
+						>Notifications
+						</Link>
+					</li>
 				</ul>
 			</div>
 			<Outlet/>
-
 		</div>);
 	} else {
 		return (<Navigate to={'/login'}/>)
