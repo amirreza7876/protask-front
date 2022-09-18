@@ -6,14 +6,6 @@ import {InformationCircleIcon} from "@heroicons/react/20/solid";
 function JoinRoom(props) {
 	const [requestString, setRequestString] = useState('');
 	return (
-		// <div>
-		// 	Join Room
-		// 	<form onSubmit={e => searchForRoom(e, requestString)}>
-		// 		<input type="text" name="" value={requestString} onChange={e => setRequestString(e.target.value)}
-		// 			   id=""/>
-		// 		<input type="submit" value={'Send Request'} name="" id=""/>
-		// 	</form>
-		// </div>
 		<MainLayout>
 			<div>
 				<form className="m-auto w-full max-w-sm" onSubmit={e => searchForRoom(e, requestString)}>
