@@ -15,6 +15,7 @@ function TaskList() {
 	useEffect(() => {
 		getRoomDetail(setRoomDetail, id)
 	}, []);
+
 	if (Object.keys(roomDetail).length !== 0 && !loadedRef.current) {
 		getRoomTasks(setTasks, id, roomDetail.data.request_string)
 		loadedRef.current = true

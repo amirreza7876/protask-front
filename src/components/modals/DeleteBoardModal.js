@@ -1,6 +1,6 @@
 import React from 'react';
 
-function ChangeStatusModal({showModal, setShowModal, boardName}) {
+function DeleteBoardModal({showModal, setShowModal, boardName}) {
 	return (
 		showModal ? (<>
 			<div
@@ -12,7 +12,7 @@ function ChangeStatusModal({showModal, setShowModal, boardName}) {
 
 						<div className="relative m-auto px-6 flex-auto">
 							<p className="my-4  flex text-white leading-relaxed">
-								Do you want to Delete <span className={'font-bold ml-1'}> {boardName} ?</span>
+								Do you want to Delete <span className={'font-bold ml-1'}> {boardName}?</span>
 							</p>
 						</div>
 						{/*footer*/}
@@ -41,4 +41,4 @@ function ChangeStatusModal({showModal, setShowModal, boardName}) {
 	);
 }
 
-export default ChangeStatusModal;
+export default DeleteBoardModal;
