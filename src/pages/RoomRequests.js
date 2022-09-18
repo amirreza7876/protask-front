@@ -6,12 +6,12 @@ import handleRequest from "../utils/handleRequest";
 import status from "../utils/checkStatus";
 
 function RoomRequests(props) {
-	const {id, requestString} = useParams()
+	const {id} = useParams()
 	const [roomRequests, setRoomRequests] = useState({});
 	const {isAuthenticated} = useContext(userContext)
 
 	useEffect(() => {
-		getRoomRequests(setRoomRequests, requestString, id)
+		getRoomRequests(setRoomRequests, id)
 	}, []);
 
 	if (isAuthenticated) {
