@@ -1,9 +1,16 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Bars3CenterLeftIcon, ChevronDownIcon, ChevronUpIcon, MinusCircleIcon} from "@heroicons/react/20/solid";
 import {Link} from "react-router-dom";
+import DeleteUserModal from "./modals/DeleteUserModal";
+import RoomMembers from "./RoomMembers";
 
-function RoomDetailSidebar({roomDetail, showMembers, setShowMembers}) {
+function RoomDetailSidebar({roomDetail, setRoomDetail}) {
+	const [showMembers, setShowMembers] = useState(false);
+	const [showDeleteUser, setShowDeleteUser] = useState(false);
+	const [userDataToDelete, setUserDataToDelete] = useState();
+
 	return (<div className={'col-span-1 bg-slate-900 min-h-screen text-white'}>
+		<DeleteUserModal setRoomDetail={setRoomDetail} showModal={showDeleteUser} setShowModal={setShowDeleteUser} userDataToDelete={userDataToDelete}/>
 		<ul>
 			<li className={'mt-3 ml-3'}>
 				<h1 className={'font-extrabold text-3xl tracking-wd font-moon uppercase'}>
@@ -30,6 +37,7 @@ function RoomDetailSidebar({roomDetail, showMembers, setShowMembers}) {
 					</p>
 				</Link>
 			</li>
+
 			<li className={`flex  pl-3 w-full hover:bg-indigo-600 py-3 ${showMembers && "bg-indigo-600"}`}
 				onClick={() => setShowMembers(!showMembers)}>
 				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -43,23 +51,10 @@ function RoomDetailSidebar({roomDetail, showMembers, setShowMembers}) {
 						<ChevronDownIcon className={'h-6 w-6 absolute right-4'}/>}
 				</p>
 			</li>
-			{showMembers ? roomDetail.data.members.map(member => (
-				<li key={member.id}
-					className={'flex justify-between w-full bg-indigo-600 hover:bg-indigo-500 pl-3'}>
-					<div className={'flex  py-3'}>
-						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-							 strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-							<path strokeLinecap="round" strokeLinejoin="round"
-								  d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/>
-						</svg>
-						<p className={'ml-4'}>
-							{member.username}
-						</p>
-					</div>
-					<div className={'flex p-3 hover:text-red-600 '}>
-						<MinusCircleIcon className={'h-full w-6'}/>
-					</div>
-				</li>)) : null}
+
+			<RoomMembers roomDetail={roomDetail} showMembers={showMembers} setShowDeleteUser={setShowDeleteUser}
+						 setUserDataToDelete={setUserDataToDelete}/>
+
 			{roomDetail.data.is_owner && <li className={'w-full hover:bg-indigo-600'}>
 				<Link to={'invite'} className={'w-full pl-3 py-3  flex h-full'}
 					  state={{status: 'EXISTS', requestString: roomDetail.data.request_string}}>
@@ -74,7 +69,7 @@ function RoomDetailSidebar({roomDetail, showMembers, setShowMembers}) {
 				</Link>
 			</li>}
 			<li className={'w-full hover:bg-indigo-600'}>
-				<Link to={`${roomDetail.data.request_string}/requests`} className={'flex pl-3 py-3 w-full'}>
+				<Link to={`requests`} className={'flex pl-3 py-3 w-full'}>
 					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
 						 strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
 						<path strokeLinecap="round" strokeLinejoin="round"
@@ -85,20 +80,8 @@ function RoomDetailSidebar({roomDetail, showMembers, setShowMembers}) {
 					</p>
 				</Link>
 			</li>
-			<li className={'w-full hover:bg-indigo-600'}>
-				<Link to={`${roomDetail.data.request_string}/invites`} className={'flex w-full pl-3 py-3'}>
-					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-						 strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-						<path strokeLinecap="round" strokeLinejoin="round"
-							  d="M21.75 9v.906a2.25 2.25 0 01-1.183 1.981l-6.478 3.488M2.25 9v.906a2.25 2.25 0 001.183 1.981l6.478 3.488m8.839 2.51l-4.66-2.51m0 0l-1.023-.55a2.25 2.25 0 00-2.134 0l-1.022.55m0 0l-4.661 2.51m16.5 1.615a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V8.844a2.25 2.25 0 011.183-1.98l7.5-4.04a2.25 2.25 0 012.134 0l7.5 4.04a2.25 2.25 0 011.183 1.98V19.5z"/>
-					</svg>
-					<p className={'ml-4'}>
-						Invites
-					</p>
-				</Link>
-			</li>
 			<li className={'w-full hover:bg-indigo-800'}>
-				<Link to={'/boards'} className={'flex w-full pl-3 py-3	'}>
+				<Link to={'/boards'} className={'flex w-full pl-3 py-3'}>
 					<Bars3CenterLeftIcon className={'h-6 w-6'}/>
 					<p className={'ml-4'}>
 						Boards
