@@ -1,7 +1,7 @@
 import React, {Fragment, useEffect, useState} from 'react';
 import {Link, useNavigate} from "react-router-dom";
 import {Popover, Transition} from "@headlessui/react";
-import {AtSymbolIcon, EllipsisHorizontalIcon, HashtagIcon, MegaphoneIcon, PencilIcon} from "@heroicons/react/20/solid";
+import {EllipsisHorizontalIcon, HashtagIcon, MegaphoneIcon} from "@heroicons/react/20/solid";
 import {ArrowRightOnRectangleIcon, PencilIcon as OutlinePencil} from "@heroicons/react/24/outline";
 import {XMarkIcon} from "@heroicons/react/24/outline";
 import AddTagModal from "./modals/AddTagModal";
@@ -29,16 +29,9 @@ const solutions = [
 		icon: MegaphoneIcon,
 		type: 'status'
 	},
-	// {
-	// 	name: 'Leave Board',
-	// 	description: 'Changing status allows you to not receive any email from this room.',
-	// 	to: '/join-room',
-	// 	icon: MegaphoneIcon,
-	// 	type: 'status'
-	// },
 ]
 
-function RoomCard({room}) {
+function RoomCard({room, setRooms}) {
 	const navigate = useNavigate();
 	const [showModalTag, setShowModalTag] = useState(false);
 	const [showModalStatus, setShowModalStatus] = useState(false);
@@ -63,10 +56,10 @@ function RoomCard({room}) {
 			 className={'flex mb-3 h-32 relative align-middle items-center bg-slate-100 rounded-md'}>
 			<AddTagModal showModal={showModalTag} setShowModal={setShowModalTag} boardName={boardName}/>
 			<ChangeStatusModal showModal={showModalStatus} setShowModal={setShowModalStatus}/>
-			<LeaveBoardModal showModal={showModalLeaveBoard} setShowModal={setShowModalLeaveBoard}
-							 boardName={boardName}/>
+			<LeaveBoardModal setRooms={setRooms} showModal={showModalLeaveBoard} setShowModal={setShowModalLeaveBoard}
+							 boardName={boardName} boardId={room.id}/>
 			<DeleteBoardModal showModal={showModalDeleteBoard} setShowModal={setShowModalDeleteBoard}
-							  boardName={boardName}/>
+							  boardName={boardName} boardId={room.id}/>
 			{room.is_owner &&
 				<span className={'absolute -top-2 -right-2 rounded-md bg-[#4f46e5] text-white p-1'}>Owner</span>}
 			<div className={'w-11/12 m-auto h-4/5'}>
@@ -147,7 +140,7 @@ function RoomCard({room}) {
 										>
 											<ArrowRightOnRectangleIcon
 												className="h-6 w-6 flex-shrink-0 text-red-600"
-												aria-hidden="true"/>
+												aria-hidden="true" />
 											<div className="ml-4">
 												<p className="text-base font-medium text-red-600">Leave Board</p>
 											</div>
