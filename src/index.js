@@ -50,8 +50,8 @@ root.render(
 				<Route path={'room/:id'} element={<RoomDetail/>}>
 					<Route path={'tasks'} element={<TaskList/>}/>
 					<Route path={'invite'} element={<InviteMember/>}/>
-					<Route path={':requestString/requests'} element={<RoomRequests/>}/>
-					<Route path={':requestString/invites'} element={<RoomInvites/>}/>
+					<Route path={'requests'} element={<RoomRequests/>}/>
+					{/*<Route path={':requestString/invites'} element={<RoomInvites/>}/>*/}
 				</Route>
 
 				{/*<Route path={'room/:id/:requestString/requests'} element={<RoomRequests/>}/>*/}
