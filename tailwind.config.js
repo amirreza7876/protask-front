@@ -7,6 +7,9 @@ module.exports = {
 			fontFamily: {
 				'sans': ['Roboto', 'Helvetica', 'Arial', 'sans-serif'],
 				'moon': ['Moon']
+			},
+			backgroundImage: {
+				'login': "url('/src/images/Project-Manager-Roles-And-Responsibilities.jpg')",
 			}
 		},
 	},
