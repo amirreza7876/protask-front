@@ -5,12 +5,15 @@ import getRoomTasks from "../apiCalls/getRoomTasks";
 import {useParams} from "react-router-dom";
 import {userContext} from "../userContext";
 import {PlusIcon} from "@heroicons/react/20/solid";
+import AddTagModal from "./modals/AddTagModal";
+import AddTaskModal from "./modals/AddTaskModal";
 
 function TaskList() {
 	const {id} = useParams()
 	const [roomDetail, setRoomDetail] = useState({});
 	const loadedRef = useRef(false);
 	const [tasks, setTasks] = useState([]);
+	const [showModal, setShowModal] = useState(false);
 
 	useEffect(() => {
 		getRoomDetail(setRoomDetail, id)
@@ -20,15 +23,16 @@ function TaskList() {
 		getRoomTasks(setTasks, id, roomDetail.data.request_string)
 		loadedRef.current = true
 	}
-	console.log(tasks)
 	return (
 		<div className={'col-span-4 ml-3'}>
+			<AddTaskModal showModal={showModal} setShowModal={setShowModal} members={roomDetail.data?.members}/>
+
 			<div className={'bg-slate-900 text-white -ml-3 flex justify-between'}>
 				<div className={'flex gap-4'}>
 					<p className={'p-4'}>
 						left items
 					</p>
-					<button className={'flex hover:bg-indigo-600 p-4'}>
+					<button className={'flex hover:bg-indigo-600 p-4'} onClick={() => setShowModal(true)}>
 						<PlusIcon className={'h-5 w-5 self-center'}/>
 						Add Task
 					</button>
@@ -43,8 +47,23 @@ function TaskList() {
 					</p>
 				</div>
 			</div>
-			<div>
-				{tasks.length !== 0 && tasks.map(task => (<TaskCard task={task}/>))}
+			<div className={'grid grid-cols-2'}>
+				<div className={'mt-3'}>
+					<table className={'w-full'}>
+						<tr>
+							<th className={'text-left text-slate-500'}>Title</th>
+							<th className={'text-left text-slate-500'}>Duration</th>
+							<th className={'text-left text-slate-500'}>Assigned To</th>
+							<th className={'text-left text-slate-500'}>Priority</th>
+							<th className={'text-left text-slate-500'}>Status</th>
+							<th className={'text-left text-slate-500'}>Done</th>
+						</tr>
+							{tasks.length !== 0 && tasks.map(task => (<TaskCard task={task}/>))}
+					</table>
+				</div>
+				<div>
+
+				</div>
 			</div>
 		</div>
 	);
