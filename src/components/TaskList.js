@@ -23,9 +23,11 @@ function TaskList() {
 		getRoomTasks(setTasks, id, roomDetail.data.request_string)
 		loadedRef.current = true
 	}
+
 	return (
 		<div className={'col-span-4 ml-3'}>
-			<AddTaskModal showModal={showModal} setShowModal={setShowModal} members={roomDetail.data?.members}/>
+			<AddTaskModal showModal={showModal} setTasks={setTasks} request_string={roomDetail.data?.request_string}
+						  id={id} setShowModal={setShowModal} members={roomDetail.data?.members}/>
 
 			<div className={'bg-slate-900 text-white -ml-3 flex justify-between'}>
 				<div className={'flex gap-4'}>
@@ -47,22 +49,22 @@ function TaskList() {
 					</p>
 				</div>
 			</div>
-			<div className={'grid grid-cols-2'}>
-				<div className={'mt-3'}>
+			<div className={'grid grid-cols-3'}>
+				<div className={'mt-3 col-span-2'}>
 					<table className={'w-full'}>
 						<tr>
 							<th className={'text-left text-slate-500'}>Title</th>
 							<th className={'text-left text-slate-500'}>Duration</th>
 							<th className={'text-left text-slate-500'}>Assigned To</th>
 							<th className={'text-left text-slate-500'}>Priority</th>
+							<th className={'text-left text-slate-500'}>Difficulty</th>
 							<th className={'text-left text-slate-500'}>Status</th>
 							<th className={'text-left text-slate-500'}>Done</th>
 						</tr>
-							{tasks.length !== 0 && tasks.map(task => (<TaskCard task={task}/>))}
+						{tasks.length !== 0 && tasks.map(task => (<TaskCard members={roomDetail.data?.members} task={task}/>))}
 					</table>
 				</div>
-				<div>
-
+				<div className={'col-span-1'}>
 				</div>
 			</div>
 		</div>
