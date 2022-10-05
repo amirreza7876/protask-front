@@ -31,9 +31,6 @@ function TaskList() {
 
 			<div className={'bg-slate-900 text-white -ml-3 flex justify-between'}>
 				<div className={'flex gap-4'}>
-					<p className={'p-4'}>
-						left items
-					</p>
 					<button className={'flex hover:bg-indigo-600 p-4'} onClick={() => setShowModal(true)}>
 						<PlusIcon className={'h-5 w-5 self-center'}/>
 						Add Task
