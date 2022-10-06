@@ -7,37 +7,64 @@ import {userContext} from "../userContext";
 import {PlusIcon} from "@heroicons/react/20/solid";
 import AddTagModal from "./modals/AddTagModal";
 import AddTaskModal from "./modals/AddTaskModal";
+import getRoomPhases from "../apiCalls/getRoomPhases";
+import AddPhaseModal from "./modals/AddPhaseModal";
+import {ChevronRightIcon} from "@heroicons/react/24/outline";
 
 function TaskList() {
 	const {id} = useParams()
 	const [roomDetail, setRoomDetail] = useState({});
-	const loadedRef = useRef(false);
+	const taskLoadedRef = useRef(false);
+	const phaseLoadedRef = useRef(false);
+	const tempSelectedRef = useRef({});
 	const [tasks, setTasks] = useState([]);
+	const [phases, setPhases] = useState([]);
 	const [showModal, setShowModal] = useState(false);
+	const [showPhaseModal, setShowPhaseModal] = useState(false);
+	const [selectedPhase, setSelectedPhase] = useState('');
+	const [update, setUpdate] = useState(true);
 
-	useEffect(() => {
-		getRoomDetail(setRoomDetail, id)
-	}, []);
 
-	if (Object.keys(roomDetail).length !== 0 && !loadedRef.current) {
-		getRoomTasks(setTasks, id, roomDetail.data.request_string)
-		loadedRef.current = true
+	if (Object.keys(roomDetail).length !== 0 && !phaseLoadedRef.current) {
+		getRoomPhases(setPhases, setSelectedPhase, id, roomDetail.data.request_string).then(r => {
+			tempSelectedRef.current = r[0]
+		})
+		phaseLoadedRef.current = true
 	}
-
+	const callGetTasks = async () => {
+		if (Object.keys(roomDetail).length !== 0 && Object.keys(tempSelectedRef.current).length !== 0 && update) {
+			await getRoomTasks(setTasks, tempSelectedRef.current, id, roomDetail.data.request_string)
+			setUpdate(false)
+		}
+	}
+	const changePhase = (selectedId) => {
+		const selectedPhase = phases.find(phase => phase.id === selectedId)
+		setSelectedPhase(selectedPhase)
+		setTasks([])
+		getRoomTasks(setTasks, selectedPhase, id, roomDetail.data.request_string).then(r => {
+		})
+	}
+	useEffect(() => {
+		getRoomDetail(setRoomDetail, id).then(r => {
+		})
+		callGetTasks().then(r => {})
+	}, []);
 	return (
 		<div className={'col-span-4 ml-3'}>
-			<AddTaskModal showModal={showModal} setTasks={setTasks} request_string={roomDetail.data?.request_string}
+			<AddTaskModal selectedPhase={selectedPhase} showModal={showModal} setTasks={setTasks}
+						  request_string={roomDetail.data?.request_string}
 						  id={id} setShowModal={setShowModal} members={roomDetail.data?.members}/>
-
+			<AddPhaseModal showPhaseModal={showPhaseModal} setPhases={setPhases} setShowPhaseModal={setShowPhaseModal}
+						   request_string={roomDetail.data?.request_string} id={id}/>
 			<div className={'bg-slate-900 text-white -ml-3 flex justify-between'}>
 				<div className={'flex gap-4'}>
 					<button className={'flex hover:bg-indigo-600 p-4'} onClick={() => setShowModal(true)}>
 						<PlusIcon className={'h-5 w-5 self-center'}/>
-						Add Task
+						Task
 					</button>
-					<button className={'flex hover:bg-indigo-600 p-4'}>
+					<button className={'flex hover:bg-indigo-600 p-4'} onClick={() => setShowPhaseModal(true)}>
 						<PlusIcon className={'h-5 w-5 self-center'}/>
-						<p>Add List</p>
+						<p>Phase</p>
 					</button>
 				</div>
 				<div className={'flex'}>
@@ -46,9 +73,28 @@ function TaskList() {
 					</p>
 				</div>
 			</div>
+			<div
+				className={'flex gap-2 mt-3 overflow-x-auto py-2 mr-3 rounded bg-slate-300 shadow-[0_0px_4px_4px_rgb(203,213,225)] text-gray-600 '}>
+				{phases.length !== 0 &&
+					phases.map(phase => (
+						<button key={phase.id}
+								onClick={() => changePhase(phase.id)}
+								className={`flex-shrink-0 cursor-pointer px-4 py-2 hover:bg-slate-400 hover:text-white rounded-lg 
+								${selectedPhase.id === phase.id && 'bg-slate-400 text-white'} flex`}>
+							<ChevronRightIcon className={'h-4 w-4 self-center mr-2'}/>
+							<p>
+								{phase.name}
+							</p>
+
+						</button>
+					))}
+			</div>
+
 			<div className={'grid grid-cols-3'}>
 				<div className={'mt-3 col-span-2'}>
 					<table className={'w-full'}>
+						<thead>
+
 						<tr>
 							<th className={'text-left text-slate-500'}>Title</th>
 							<th className={'text-left text-slate-500'}>Duration</th>
@@ -58,7 +104,9 @@ function TaskList() {
 							<th className={'text-left text-slate-500'}>Status</th>
 							<th className={'text-left text-slate-500'}>Done</th>
 						</tr>
-						{tasks.length !== 0 && tasks.map(task => (<TaskCard members={roomDetail.data?.members} task={task}/>))}
+						</thead>
+						{tasks.length !== 0 && tasks.map(task => (
+							<TaskCard setUpdate={setUpdate} members={roomDetail.data?.members} task={task}/>))}
 					</table>
 				</div>
 				<div className={'col-span-1'}>
