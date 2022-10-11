@@ -1,7 +1,7 @@
 import api from "../api";
 
-const changeTask = async (value, field, id) => {
-	const response = await api.patch('/tasks/update/', {id, field, value})
+const changeTask = async (data, id) => {
+	await api.patch('/tasks/update/', {id, data})
 }
 
 export default changeTask;
