@@ -1,8 +1,14 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {MinusCircleIcon} from "@heroicons/react/20/solid";
 import handleRemoveUser from "../apiCalls/handleRemoveUser";
+import getUserData from "../apiCalls/getUserData";
 
 function RoomMembers({showMembers, roomDetail, setShowDeleteUser, setUserDataToDelete}) {
+	const [username, setUsername] = useState('');
+	useEffect(() => {
+		getUserData(setUsername)
+	}, []);
+
 	const setDataAndShowModal = (event, username) => {
 		event.preventDefault()
 		setUserDataToDelete({username, roomId: roomDetail.data.id})
@@ -22,7 +28,8 @@ function RoomMembers({showMembers, roomDetail, setShowDeleteUser, setUserDataToD
 						{member.username}
 					</p>
 				</div>
-				{member.username!== roomDetail.data.leader.username&&
+				{username === roomDetail.data.leader.username &&
+					member.username !== roomDetail.data.leader.username &&
 					<div className={'flex p-3 hover:text-red-600 hover:cursor-pointer'}
 						 onClick={(e) => setDataAndShowModal(e, member.username)}>
 						< MinusCircleIcon className={'h-full w-6'}/>
