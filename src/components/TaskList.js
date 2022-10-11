@@ -82,14 +82,14 @@ function TaskList() {
 				</div>
 			</div>
 			<div
-				className={'flex gap-2 mt-3 overflow-x-auto py-2 mr-3 rounded bg-slate-300 shadow-[0_0px_4px_4px_rgb(203,213,225)] text-gray-600 '}>
+				className={'flex gap-2 mt-3 overflow-x-auto py-2 mr-3 rounded border-b-2 text-gray-600 '}>
 				{phases.length !== 0 &&
 					phases.map(phase => (
 						<button key={phase.id}
 								onClick={() => changePhase(phase.id)}
-								className={`flex-shrink-0 cursor-pointer px-4 py-2 hover:bg-slate-400 hover:text-white rounded-lg 
-								${selectedPhase.id === phase.id && 'bg-slate-400 text-white'} flex`}>
-							<ChevronRightIcon className={'h-4 w-4 self-center mr-2'}/>
+								className={`flex-shrink-0 text-gray-600 cursor-pointer px-4 py-2 hover:bg-slate-300 hover:text-gray-800 hover:shadow-md hover:shadow-slate-300 rounded-lg 
+								${selectedPhase.id === phase.id && 'bg-slate-200'} flex`}>
+							{/*<ChevronRightIcon className={'h-4 w-4 self-center mr-2'}/>*/}
 							<p>
 								{phase.name}
 							</p>
@@ -101,7 +101,7 @@ function TaskList() {
 			<div className={'grid grid-cols-3'}>
 				<div className={'mt-3 col-span-2'}>
 					<table className={'w-full'}>
-						<thead>
+						<thead className={'border-b-2'}>
 						<tr>
 							<th className={'text-center text-slate-500'}>Title</th>
 							<th className={'text-center text-slate-500'}>Duration</th>
@@ -109,7 +109,7 @@ function TaskList() {
 							<th className={'text-center text-slate-500'}>Priority</th>
 							<th className={'text-center text-slate-500'}>Difficulty</th>
 							<th className={'text-center text-slate-500'}>Status</th>
-							<th className={'text-left text-slate-500'}>Done</th>
+							{/*<th className={'text-center text-slate-500'}>Done</th>*/}
 						</tr>
 						</thead>
 						{tasks.length !== 0 && tasks.map(task => (
