@@ -1,9 +1,19 @@
-import React from 'react';
+import React, {useState} from 'react';
 import handleLeaveBoard from "../../apiCalls/handleLeaveBoard";
 import {ExclamationTriangleIcon} from "@heroicons/react/24/outline";
+import changeTask from "../../apiCalls/changeTask";
 
 function EditModalTask({showEditModal, setShowEditModal, task, members}) {
-	console.log(task)
+	const [title, setTitle] = useState(task.title);
+	const [duration, setDuration] = useState(task.duration);
+	const [user, setUser] = useState(task.user.username);
+	const [difficulty, setDifficulty] = useState(task.difficulty);
+	const [priority, setPriority] = useState(task.priority);
+	const applyChanges = async () => {
+		console.log(title, duration, user, difficulty, priority)
+		await changeTask({title, duration, user, difficulty, priority}, task.id)
+		setShowEditModal(false)
+	}
 	return (showEditModal ? (<>
 		<div
 			className="justify-center items-center  flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
@@ -16,20 +26,23 @@ function EditModalTask({showEditModal, setShowEditModal, task, members}) {
 							<div>
 								<label htmlFor="task_title" className={'text-slate-200 block'}>Title</label>
 								<input type="text"
+									   onChange={e => setTitle(e.target.value)}
 									   className={'bg-slate-800 w-full text-slate-200 p-1 px-2 border-0 outline-0 rounded-md'}
-									   value={task.title} name="" id=""/>
+									   value={title} name="" id=""/>
 							</div>
 							<div>
 								<label htmlFor="task_title" className={'text-slate-200 block'}>Duration</label>
 								<input type="text"
+									   onChange={e => setDuration(e.target.value)}
 									   className={'bg-slate-800 w-full text-slate-200 p-1 px-2 border-0 outline-0 rounded-md'}
-									   value={task.duration} name="" id=""/>
+									   value={duration} name="" id=""/>
 							</div>
 							<div>
 								<label htmlFor="task_title" className={'text-slate-200 block'}>User</label>
 								<select name="assignedTo"
+										onChange={e => setUser(e.target.value)}
 										className={'bg-slate-800 w-full text-slate-200 p-1 px-2 border-0 outline-0 rounded-md'}
-										defaultValue={task.user.username} id="">
+										defaultValue={user} id="">
 									{members.map(member => (
 										<option name="" value={member.username} id="">{member.username}</option>
 									))}
@@ -39,7 +52,8 @@ function EditModalTask({showEditModal, setShowEditModal, task, members}) {
 							<div>
 								<label htmlFor="task_title" className={'text-slate-200 block'}>Difficulty</label>
 								<select name=""
-										defaultValue={task.difficulty}
+										onChange={e => setDifficulty(e.target.value)}
+										defaultValue={difficulty}
 										className={'bg-slate-800 w-full text-slate-200 p-1 px-2 border-0 outline-0 rounded-md'}
 										id="">
 									<option value="el">Elementary</option>
@@ -51,7 +65,8 @@ function EditModalTask({showEditModal, setShowEditModal, task, members}) {
 							<div>
 								<label htmlFor="task_title" className={'text-slate-200 block'}>Priority</label>
 								<select name=""
-										defaultValue={task.priority}
+										onChange={e => setPriority(e.target.value)}
+										defaultValue={priority}
 										className={'bg-slate-800 w-full text-slate-200 p-1 px-2 border-0 outline-0 rounded-md'}
 										id="">
 									<option value="l">Low</option>
@@ -75,7 +90,7 @@ function EditModalTask({showEditModal, setShowEditModal, task, members}) {
 						<button
 							className="text-green-500 bg-slate-800 rounded background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
 							type="button"
-							onClick={() => setShowEditModal(false)}
+							onClick={() => applyChanges(false)}
 						>
 							Apply
 						</button>
