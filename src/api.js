@@ -3,7 +3,7 @@ import verifyToken from "./utils/verifyToken";
 
 const redirectToLogin = () => {
 	localStorage.removeItem('token')
-	window.location.replace('login')
+	window.location.replace('/login')
 }
 
 const instance = axios.create({
