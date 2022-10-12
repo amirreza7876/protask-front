@@ -1,10 +1,7 @@
 import api from "../api";
 
-const deleteTask = async (taskId) => {
-	console.log(taskId)
-	const response = await api.delete('/tasks/delete/', {data: {'id': taskId}})
-	console.log(response)
-	return response
+const deleteTask = async (taskId, roomId) => {
+	return await api.delete('/tasks/delete/', {data: {taskId, roomId}}).catch(err => err.response)
 }
 
 export default deleteTask;
