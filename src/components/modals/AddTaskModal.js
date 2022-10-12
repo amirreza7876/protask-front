@@ -16,9 +16,10 @@ function AddTaskModal({showModal, selectedPhase, id, setTasks, request_string, s
 		setUser('')
 		setDifficulty('')
 		setPriority('')
+		console.log(response)
 		if (response.status === 201) {
-			await getRoomTasks(setTasks, id, request_string)
 			setShowModal(false)
+			await getRoomTasks(setTasks, selectedPhase, id)
 		}
 	}
 
