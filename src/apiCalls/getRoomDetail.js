@@ -1,9 +1,7 @@
 import api from "../api";
 
-const getRoomDetail = async (setRoomDetail, id) => {
-	const response = await api.get(`/rooms/mine/${id}`).catch(err => err.response)
-	setRoomDetail({data: response.data, status: response.status})
-	return response
+const getRoomDetail = async (id) => {
+	return await api.get(`/rooms/mine/${id}`).catch(err => err.response)
 }
 
 export default getRoomDetail;
