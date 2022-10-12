@@ -12,7 +12,7 @@ function RoomDetail() {
 	const [roomDetail, setRoomDetail] = useState({});
 
 	useEffect(() => {
-		getRoomDetail(setRoomDetail, id)
+		getRoomDetail(id).then(r => setRoomDetail({data: r.data, status: r.status}))
 	}, []);
 
 
