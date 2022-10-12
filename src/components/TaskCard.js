@@ -1,23 +1,26 @@
 import React, {useState} from 'react';
 import priorityStatus from "../utils/checkTaskPriorityStatus";
 import taskStatus from "../utils/checkTaskStatus";
-import changeTask from "../apiCalls/changeTask";
-import difficultyStatus from "../utils/checkTaskDifficultyStatus";
 import checkTaskDifficultyStatus from "../utils/checkTaskDifficultyStatus";
 import {PencilIcon, TrashIcon} from "@heroicons/react/24/outline";
 import deleteTask from "../apiCalls/deleteTask";
 
-function TaskCard({task, setShowEditModal, members, setUpdate}) {
+function TaskCard({task, setShowEditModal, roomId, callGetTasks}) {
 	const [title, setTitle] = useState(task.title);
 	const [duration, setDuration] = useState(task.duration);
 	const [username, setUsername] = useState(task.user.username);
 	const [priority, setPriority] = useState(task.priority);
 	const [difficulty, setDifficulty] = useState(task.difficulty);
 	const [status, setStatus] = useState(task.status)
-	const [done, setDone] = useState(task.done);
 
 	const handleDeleteTask = async () => {
-		await deleteTask(task.id)
+		const response = await deleteTask(task.id, roomId)
+		if (response.status === 202){
+			await callGetTasks()
+		}
+		if (response.status === 403) {
+			console.log('toastify needed')
+		}
 	}
 
 	return (
