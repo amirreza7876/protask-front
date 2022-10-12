@@ -2,17 +2,19 @@ import React, {useState} from 'react';
 import handleLeaveBoard from "../../apiCalls/handleLeaveBoard";
 import {ExclamationTriangleIcon} from "@heroicons/react/24/outline";
 import changeTask from "../../apiCalls/changeTask";
+import getRoomTasks from "../../apiCalls/getRoomTasks";
 
-function EditModalTask({showEditModal, setShowEditModal, task, members}) {
+function EditModalTask({showEditModal, setShowEditModal, task, members, id, setTasks, selectedPhase}) {
 	const [title, setTitle] = useState(task.title);
 	const [duration, setDuration] = useState(task.duration);
 	const [user, setUser] = useState(task.user.username);
 	const [difficulty, setDifficulty] = useState(task.difficulty);
 	const [priority, setPriority] = useState(task.priority);
 	const applyChanges = async () => {
-		console.log(title, duration, user, difficulty, priority)
 		await changeTask({title, duration, user, difficulty, priority}, task.id)
 		setShowEditModal(false)
+		//TODO update task after update
+		await getRoomTasks(setTasks, selectedPhase, id)
 	}
 	return (showEditModal ? (<>
 		<div
