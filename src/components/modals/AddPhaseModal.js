@@ -3,15 +3,15 @@ import addTask from "../../apiCalls/addTask";
 import getRoomPhases from "../../apiCalls/getRoomPhases";
 import addPhase from "../../apiCalls/addPhase";
 
-function AddPhaseModal({showPhaseModal, id, setPhases, request_string, setShowPhaseModal}) {
+function AddPhaseModal({showPhaseModal, id, setPhases, setSelectedPhase, setShowPhaseModal}) {
 	const [name, setName] = useState('');
 
 	const handleNewPhase = async () => {
 		const response = await addPhase(name, id)
 		setName('')
 		if (response.status === 201) {
-			await getRoomPhases(setPhases, id, request_string)
 			setShowPhaseModal(false)
+			await getRoomPhases(setPhases, setSelectedPhase, id)
 		}
 	}
 
