@@ -3,7 +3,7 @@ import handleLeaveBoard from "../../apiCalls/handleLeaveBoard";
 import addTask from "../../apiCalls/addTask";
 import getRoomTasks from "../../apiCalls/getRoomTasks";
 
-function AddTaskModal({showModal, selectedPhase, id, setTasks, request_string, setShowModal, members}) {
+function AddTaskModal({showModal, selectedPhase, id, setTasks, setShowModal, members}) {
 	const [title, setTitle] = useState('');
 	const [duration, setDuration] = useState('0');
 	const [user, setUser] = useState('');
