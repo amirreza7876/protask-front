@@ -20,7 +20,7 @@ function TaskList() {
 	const [showDeletePhaseModal, setShowDeletePhaseModal] = useState(false);
 	const [showPhaseModal, setShowPhaseModal] = useState(false);
 	const [selectedPhase, setSelectedPhase] = useState('');
-
+	const [editableTask, setEditableTask] = useState(null);
 	const callGetPhases = async () => {
 		if (Object.keys(roomDetail).length !== 0) {
 			await getRoomPhases(setPhases, setSelectedPhase, id, roomDetail.data.request_string)
@@ -36,7 +36,7 @@ function TaskList() {
 		const filtered = phases.find(phase => phase.id === selectedId)
 		setSelectedPhase(filtered)
 		setTasks([])
-		await getRoomTasks(setTasks, filtered, id, roomDetail.data.request_string)
+		await getRoomTasks(setTasks, filtered, id)
 	}
 	const handleDeletePhase = () => {
 		setShowDeletePhaseModal(true)
@@ -57,13 +57,11 @@ function TaskList() {
 			setRoomDetail({data: r.data, status: r.status})
 		})
 	}, []);
-
 	return (
 		<div className={'col-span-4 ml-3'}>
 			<AddTaskModal selectedPhase={selectedPhase}
 						  showModal={showModal}
 						  setTasks={setTasks}
-						  request_string={roomDetail.data?.request_string}
 						  id={id}
 						  setShowModal={setShowModal}
 						  members={roomDetail.data?.members}/>
@@ -133,19 +131,22 @@ function TaskList() {
 						</thead>
 						{tasks.length !== 0 && tasks.map(task => (
 							<>
-								<EditTaskModal
-									showEditModal={showEditModal}
-									setShowEditModal={setShowEditModal}
-									members={roomDetail.data?.members}
-									task={task}
-									id={id}
-									setTasks={setTasks}
-									selectedPhase={selectedPhase}
-								/>
+								{editableTask !== null &&
+									<EditTaskModal
+										showEditModal={showEditModal}
+										setShowEditModal={setShowEditModal}
+										members={roomDetail.data?.members}
+										selectedPhase={selectedPhase}
+										setTasks={setTasks}
+										editableTask={editableTask}
+										id={id}
+									/>
+								}
 								<TaskCard setShowEditModal={setShowEditModal}
 										  callGetTasks={callGetTasks}
-										  roomId={id}
+										  setEditableTask={setEditableTask}
 										  task={task}
+										  roomId={id}
 								/>
 							</>
 						))}
