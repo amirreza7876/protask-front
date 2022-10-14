@@ -1,11 +1,13 @@
 import React from 'react';
 import NavigationBar from "../components/NavigationBar";
 
-function MainLayout({children}) {
+function MainLayout({children, className}) {
 	return (
 		<>
 			<NavigationBar/>
-			{children}
+			<div className={className}>
+				{children}
+			</div>
 		</>
 	);
 }
