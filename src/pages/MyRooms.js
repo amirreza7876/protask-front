@@ -15,8 +15,8 @@ function MyRooms() {
 	}, []);
 
 	if (isAuthenticated) {
-		return (<MainLayout>
-			<div className={'grid-cols-4 grid gap-5 mt-10 max-w-6xl m-auto'}>
+		return (<MainLayout className={'bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 h-screen'}>
+			<div className={'grid-cols-4 grid gap-5 pt-10 max-w-6xl m-auto '}>
 				{/*TODO move this to another file*/}
 				{rooms.length !== 0 && rooms.map((room, index) => (
 					<div key={index}>
