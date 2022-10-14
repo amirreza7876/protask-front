@@ -9,6 +9,7 @@ import ChangeStatusModal from "./modals/ChangeStatusModal";
 import changeBoardName from "../apiCalls/changeBoardName";
 import LeaveBoardModal from "./modals/LeaveBoardModal";
 import DeleteBoardModal from "./modals/DeleteBoardModal";
+import {CheckIcon} from "@heroicons/react/24/solid";
 
 
 function classNames(...classes) {
@@ -28,8 +29,13 @@ const solutions = [
 		to: '/join-room',
 		icon: MegaphoneIcon,
 		type: 'status'
+	}, {
+		name: 'Rename',
+		icon: OutlinePencil,
+		type: 'name'
 	},
 ]
+
 
 function RoomCard({room, setRooms}) {
 	const navigate = useNavigate();
@@ -50,56 +56,86 @@ function RoomCard({room, setRooms}) {
 	useEffect(() => {
 		setBoardName(room.name)
 	}, []);
-
+	console.log(room)
 	return (
 		<div key={room.id}
-			 className={'flex mb-3 h-32 relative align-middle items-center bg-slate-100 rounded-md'}>
-			<AddTagModal showModal={showModalTag} setShowModal={setShowModalTag} boardName={boardName}/>
+			 className={`flex mb-3 h-32 relative align-middle items-center bg-slate-100 rounded-md`}
+			 style={{backgroundImage: `linear-gradient(${room.color}80,${room.color}99,${room.color}b3,${room.color}cc, ${room.color}e6`}}
+		>
+			<
+				AddTagModal
+				showModal={showModalTag}
+				setShowModal={setShowModalTag}
+				boardName={boardName}
+			/>
 			<ChangeStatusModal showModal={showModalStatus} setShowModal={setShowModalStatus}/>
 			<LeaveBoardModal setRooms={setRooms} showModal={showModalLeaveBoard} setShowModal={setShowModalLeaveBoard}
 							 boardName={boardName} boardId={room.id}/>
 			<DeleteBoardModal showModal={showModalDeleteBoard} setShowModal={setShowModalDeleteBoard}
 							  boardName={boardName} boardId={room.id}/>
-			{room.is_owner &&
-				<span className={'absolute -top-2 -right-2 rounded-md bg-[#4f46e5] text-white p-1'}>Owner</span>}
+			{
+				room.is_owner &&
+				<span className={'absolute -top-2 -right-2 rounded-md bg-[#4f46e5] text-white p-1'}>Owner</span>
+			}
 			<div className={'w-11/12 m-auto h-4/5'}>
-				<div className={'flex'}>
+				<div className={'flex h-full'}>
 					{editName && room.is_owner ?
-						<div>
-							<input type="text" value={boardName}
-								   onChange={(e) => setBoardName(e.target.value)}
-								   className='w-fit h-fit self-center ml-4 bg-slate-100 rounded-md border-2 p-1' name=""
-								   id=""/>
-							<button className={'ml-4 border-b-2 border-blue-500 mt-2'}
-									onClick={() => handleChangeBoardName()}>Rename
-							</button>
+						// <div className={'w-1/2 m-auto bg-transparent rounded-md'}>
+						// 	<input type="text" value={boardName}
+						// 		   onChange={(e) => setBoardName(e.target.value)}
+						// 		   className='w-full self-center rounded-md p-1' name=""
+						// 		   style={{backgroundColor: room.color+'33'}}
+						//
+						// 		   id=""/>
+						// 	<button className={'mt-2 bg-blue-300 px-2 py-1 rounded-lg'}
+						// 			style={{backgroundColor: room.color+'1a'}}
+						// 			onClick={() => handleChangeBoardName()}>Apply
+						// 	</button>
+						// </div>
+						<div className={'grid m-auto'}>
+							<div
+								className={`align-middle p-2 w-12 h-12 leading-loose items-center text-center text-white rounded-full place-self-center`}
+								style={{backgroundColor: room.color, blockSize: "auto"}}>
+								<p className={'text-xl'}>
+									{room.name[0].toUpperCase()}
+								</p>
+							</div>
+							<div className={'w-3/4 flex mt-2 justify-self-center space-x-2 justify-center'}>
+								<input type="text" value={boardName}
+									   onChange={(e) => setBoardName(e.target.value)}
+									   className='w-1/2 border-2 border-gray-600 self-center rounded-md py-1 px-2 text-center'
+									   name=""
+									   id=""/>
+								<button className={'rounded-full bg-transparent'}
+										onClick={() => handleChangeBoardName()}>
+									<CheckIcon className={'h-6 w-6 self-center'}/>
+								</button>
+							</div>
 						</div>
 						:
-						<div className={'flex'}>
+						<div className={'grid m-auto'}>
 							<div
-								className={`align-middle p-2 w-12 h-12 leading-loose items-center text-center rounded-full self-center justify-center items-center`}
-								style={{backgroundColor: room.color}}>
-								<p className={'font-bold'}>
+								className={`align-middle p-2 w-12 h-12 leading-loose items-center text-center text-white rounded-full place-self-center`}
+								style={{backgroundColor: room.color, blockSize: "auto"}}>
+								<p className={'text-xl'}>
 									{room.name[0].toUpperCase()}
 								</p>
 							</div>
 
-							<Link className={'self-center ml-4 text-blue-500 text-lg'} to={`/room/${room.id}`}>
-								{room.name}
-							</Link>
-							{room.is_owner &&
-								<OutlinePencil
-									className={'h-8 w-8 self-center ml-2 rounded p-2 hover:cursor-pointer hover:bg-slate-200'}
-									onClick={() => setEditName(!editName)}/>
-							}
-						</div>}
+							<div className={'flex justify-center'}>
+								<Link className={'self-center text-white text-lg'} to={`/room/${room.id}`}>
+									{room.name}
+								</Link>
+							</div>
+						</div>
+					}
 				</div>
 			</div>
-			<div className={'p-1 rounded bottom-3 right-3 absolute'}>
+			<div className={'p-1 rounded bottom-1 right-3 absolute'}>
 				<Popover className="relative">
 					{({open}) => (<>
 						<Popover.Button
-							className={classNames(open ? 'text-gray-900' : 'text-gray-500', ' group inline-flex items-center rounded-md hover:bg-slate-200 text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2')}
+							className={classNames(open ? 'text-gray-900' : 'text-gray-500', ' group inline-flex items-center rounded-md text-base hover:bg-transparent/10')}
 						>
 							<EllipsisHorizontalIcon className={'w-6 h-6'}/>
 						</Popover.Button>
@@ -120,18 +156,32 @@ function RoomCard({room, setRooms}) {
 									<div
 										className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
 										{solutions.map((item) => (
-											<p
-												className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50 hover:cursor-pointer"
-												onClick={() => item.type === 'tag' ? setShowModalTag(!showModalTag) : item.type === 'status' ? setShowModalStatus(!showModalStatus) : null}
-											>
-												<item.icon
-													className="h-6 w-6 flex-shrink-0 text-indigo-600"
-													aria-hidden="true"/>
-												<div className="ml-4">
-													<p className="text-base font-medium text-gray-900">{item.name}</p>
-													<p className="mt-1 text-sm text-gray-500">{item.description}</p>
-												</div>
-											</p>
+											item.type === 'name' ?
+												room.is_owner &&
+												<p
+													className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50 hover:cursor-pointer"
+													onClick={() => setEditName(!editName)}
+												>
+													<item.icon
+														className="h-6 w-6 flex-shrink-0 text-indigo-600"
+														aria-hidden="true"/>
+													<div className="ml-4">
+														<p className="text-base font-medium text-gray-900">{item.name}</p>
+													</div>
+												</p>
+												:
+												<p
+													className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-50 hover:cursor-pointer"
+													onClick={() => item.type === 'tag' ? setShowModalTag(!showModalTag) : item.type === 'status' ? setShowModalStatus(!showModalStatus) : null}
+												>
+													<item.icon
+														className="h-6 w-6 flex-shrink-0 text-indigo-600"
+														aria-hidden="true"/>
+													<div className="ml-4">
+														<p className="text-base font-medium text-gray-900">{item.name}</p>
+														<p className="mt-1 text-sm text-gray-500">{item.description}</p>
+													</div>
+												</p>
 
 										))}
 										<p
@@ -140,7 +190,7 @@ function RoomCard({room, setRooms}) {
 										>
 											<ArrowRightOnRectangleIcon
 												className="h-6 w-6 flex-shrink-0 text-red-600"
-												aria-hidden="true" />
+												aria-hidden="true"/>
 											<div className="ml-4">
 												<p className="text-base font-medium text-red-600">Leave Board</p>
 											</div>
@@ -167,7 +217,8 @@ function RoomCard({room, setRooms}) {
 				</Popover>
 			</div>
 		</div>
-	);
+	)
+		;
 }
 
 export default RoomCard;
