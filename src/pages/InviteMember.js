@@ -4,6 +4,7 @@ import handleInviteMember from "../utils/handleInviteMember";
 import {userContext} from "../userContext";
 import getRoomInvites from "../apiCalls/getRoomInvites";
 import status from "../utils/checkStatus";
+import {PaperAirplaneIcon} from "@heroicons/react/24/solid";
 
 function InviteMember() {
 	const location = useLocation()
@@ -35,9 +36,9 @@ function InviteMember() {
 							onChange={e => setUsername(e.target.value)}
 							aria-label="Full name"/>
 						<button
-							className="flex-shrink-0 bg-[#4f46e5] hover:bg-[#2e2990] text-md text-white py-1 px-2 rounded"
+							className="flex-shrink-0 bg-black hover:bg-gray-700 text-md text-white py-1 px-2 rounded"
 							type="submit">
-							Invite
+							<PaperAirplaneIcon className={'h-6 w-6'}/>
 						</button>
 					</div>
 				</form>
