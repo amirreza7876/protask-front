@@ -80,18 +80,6 @@ function RoomCard({room, setRooms}) {
 			<div className={'w-11/12 m-auto h-4/5'}>
 				<div className={'flex h-full'}>
 					{editName && room.is_owner ?
-						// <div className={'w-1/2 m-auto bg-transparent rounded-md'}>
-						// 	<input type="text" value={boardName}
-						// 		   onChange={(e) => setBoardName(e.target.value)}
-						// 		   className='w-full self-center rounded-md p-1' name=""
-						// 		   style={{backgroundColor: room.color+'33'}}
-						//
-						// 		   id=""/>
-						// 	<button className={'mt-2 bg-blue-300 px-2 py-1 rounded-lg'}
-						// 			style={{backgroundColor: room.color+'1a'}}
-						// 			onClick={() => handleChangeBoardName()}>Apply
-						// 	</button>
-						// </div>
 						<div className={'grid m-auto'}>
 							<div
 								className={`align-middle p-2 w-12 h-12 leading-loose items-center text-center text-white rounded-full place-self-center`}
@@ -123,7 +111,7 @@ function RoomCard({room, setRooms}) {
 							</div>
 
 							<div className={'flex justify-center'}>
-								<Link className={'self-center text-white text-lg'} to={`/room/${room.id}`}>
+								<Link className={'self-center text-white text-lg first-letter:uppercase'} to={`/room/${room.id}`}>
 									{room.name}
 								</Link>
 							</div>
