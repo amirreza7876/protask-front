@@ -13,7 +13,7 @@ function DeleteUserModal({showModal, setShowModal, userDataToDelete,setRoomDetai
 
 						<div className="relative m-auto px-6 flex-auto">
 							<p className="my-4  flex text-white leading-relaxed">
-								Do you want to Delete <span
+								Do you want to remove <span
 								className={'font-bold ml-1'}> {userDataToDelete.username} ?</span>
 							</p>
 						</div>

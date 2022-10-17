@@ -26,6 +26,7 @@ import Profile from "./pages/Profile";
 import Activity from "./pages/Activity";
 import Settings from "./pages/Settings";
 import TaskList from "./components/TaskList";
+import BoardConversation from "./pages/BoardConversation";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -39,9 +40,7 @@ root.render(
 					<Route path={'activity'} element={<Activity/>}/>
 					<Route path={'settings'} element={<Settings/>}/>
 					<Route path={'notifications'} element={<Notifications/>}/>
-
 				</Route>
-
 				<Route path={'create-board'} element={<CreateBoard/>}/>
 				<Route path={'join-room'} element={<JoinRoom/>}/>
 				<Route path={'boards'} element={<MyRooms/>}/>
@@ -51,6 +50,7 @@ root.render(
 					<Route path={'tasks'} element={<TaskList/>}/>
 					<Route path={'invite'} element={<InviteMember/>}/>
 					<Route path={'requests'} element={<RoomRequests/>}/>
+					<Route path={'conversation'} element={<BoardConversation/>}/>
 					{/*<Route path={':requestString/invites'} element={<RoomInvites/>}/>*/}
 				</Route>
 
