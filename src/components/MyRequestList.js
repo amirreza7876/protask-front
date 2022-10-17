@@ -2,7 +2,7 @@ import React from 'react';
 import status from "../utils/checkStatus";
 import {Link} from "react-router-dom";
 
-function MyRequestList({showRequests, requests}) {
+function MyRequestList({showRequests, setRequests,requests}) {
 	return (
 		<div className={'grid grid-cols-2 gap-3'}>
 			{showRequests &&
