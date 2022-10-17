@@ -2,7 +2,6 @@ import api from "../api";
 
 const handleInvite = async (event, type, invite) => {
 	event.preventDefault()
-	console.log(invite.from_room)
 	const uuid = invite.from_room.id
 	const forUser = invite.for_user
 	const inviteId = invite.id
