@@ -41,14 +41,14 @@ function AddPhaseModal({showPhaseModal, id, setPhases, setSelectedPhase, setShow
 							</div>
 							<div className={'float-left my-6'}>
 								<button
-									className="text-red-500 bg-slate-800 rounded background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+									className="text-red-500 bg-slate-800 rounded background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 hover:bg-slate-700"
 									type="button"
 									onClick={() => setShowPhaseModal(false)}
 								>
 									Cancel
 								</button>
 								<button
-									className="text-green-500 bg-slate-800 rounded background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+									className="text-green-500 bg-slate-800 rounded background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 hover:bg-slate-700"
 									type="button"
 									onClick={handleNewPhase}
 								>
