@@ -51,7 +51,7 @@ function Notifications() {
 					}
 				</button>
 			</div>
-			<MyInvitesList showInvites={showInvites} invites={invites}/>
+			<MyInvitesList showInvites={showInvites} setInvites={setInvites} invites={invites}/>
 		</div>
 	);
 }
