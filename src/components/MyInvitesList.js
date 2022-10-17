@@ -1,8 +1,15 @@
 import React from 'react';
 import handleInvite from "../utils/handleInvite";
 import status from "../utils/checkStatus";
+import getInvites from "../apiCalls/getInvites";
 
-function MyInvitesList({showInvites, invites}) {
+function MyInvitesList({showInvites, invites, setInvites}) {
+	// const [pendingDecision, setPendingDecision] = useState(false);
+	const handleDecision = async (e, decision, invite) => {
+		await handleInvite(e, decision, invite)
+		await getInvites(setInvites)
+	}
+
 	return (
 		<div className={'grid grid-cols-2 gap-3'}>
 			{showInvites &&
@@ -19,11 +26,11 @@ function MyInvitesList({showInvites, invites}) {
 									<div className={' space-x-3'}>
 										<button
 											className="inline-flex items-center py-2 px-4 text-sm font-medium text-center text-black bg-blue-400 rounded-lg hover:bg-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300"
-											onClick={e => handleInvite(e, 'accept', invite)}>Accept
+											onClick={e => handleDecision(e, 'accept', invite)}>Accept
 										</button>
 										<button
 											className="inline-flex items-center py-2 px-4 text-sm font-medium text-center text-gray-900 rounded-lg border border-gray-300 hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-200"
-											onClick={e => handleInvite(e, 'reject', invite)}>Reject
+											onClick={e => handleDecision(e, 'reject', invite)}>Reject
 										</button>
 									</div>
 								}
